@@ -1,0 +1,32 @@
+﻿@page "/"
+@inherits BlazorChat.App.Pages.ChatModel
+
+@if (UserName == "")
+{
+    <form id="form1" method="get" target="_self" onsubmit="@SetUserName">
+        <div>
+            <span label-for="UserName">Choose a name:</span>
+            <input style="width:90%" autofocus bind="@UserName" placeholder="Type a name and press Enter" />
+        </div>
+        <input type="submit" value="Send" style="display: none;" />
+    </form>
+}
+else
+{
+    <div class="chat">
+        <div>
+            <ul style="list-style:none;">
+                @foreach (var chatMessage in Messages)
+                {
+                    <li><span>@chatMessage.Received.ToString("t")</span>&nbsp;:&nbsp;<span>@chatMessage.Name</span>&nbsp;:&nbsp;<span>@chatMessage.Message</span></li>
+                }
+            </ul>
+        </div>
+        <form id="form2" method="get" target="_self" onsubmit="@InputChanged">
+            <div><span>Message:</span>
+            <input style="width:90%" autofocus bind="@message" placeholder="Type a message and press Enter" /></div>
+            <input type="submit" value="Send" style="display: none;" />
+        </form>
+
+    </div>
+}
